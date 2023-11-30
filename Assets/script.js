@@ -11,6 +11,10 @@ function updateDay() {
 
 var inst = setInterval(updateDay, 1000);
 var button = $(".btn");
+/* var event = {
+  text: $(this).parent("textarea").value,
+  time: $(this).parent().parent("section").attr('id')
+}; */
 
 button.on('click', function () {
   // TODO: Add a listener for click events on the save button. This code should
@@ -31,21 +35,54 @@ button.on('click', function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-
-  
+  var event = {
+    text: $(this).parent("textarea").value,
+    time: $(this).parent().parent("section").attr('id')
+  };
+  localStorage.setItem("event", JSON.stringify(event));
 });
 
-$(function setPast() {
-  button.parent('section').addClass('past');
-});
+function renderEvents() {
+  var storedEvents = JSON.parse(localStorage.getItem("event"));
+  if (storedEvents !== null) {
+    $(".container-fluid").children(storedEvents.time).text(storedEvents.text);
+  }
+}
 
-$(function setPresent() {
-  button.parent('section').addClass('present');
-});
+function setPast(id) {
+  $(id).addClass('past');
+};
 
-$(function setFuture() {
-  button.parent('section').addClass('future');
-});
+function setPresent(id) {
+  $(id).addClass('present');
+};
+
+function setFuture(id) {
+  $(id).addClass('future');
+};
 
 var currentHour = dayjs().format('H');
+
+/* $('.container-fluid').find('section').attr('value') */
+
+function changeColor(id) {
+  if ($(id).attr('value') < currentHour) {
+    setPast(id);
+  } else if ($(id).attr('value') == currentHour) {
+    setPresent(id);
+  } else if ($(id).attr('value') > currentHour) {
+    setFuture(id);
+  }
+}
+
+changeColor("#hour-9");
+changeColor("#hour-10");
+changeColor("#hour-11");
+changeColor("#hour-12");
+changeColor("#hour-13");
+changeColor("#hour-14");
+changeColor("#hour-15");
+changeColor("#hour-16");
+changeColor("#hour-17");
+renderEvents();
 console.log(currentHour);
