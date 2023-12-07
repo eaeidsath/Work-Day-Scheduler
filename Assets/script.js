@@ -61,7 +61,7 @@ function setFuture(id) {
   $(id).addClass('future');
 };
 
-var currentHour = dayjs().format('H');
+var currentHour = dayjs().format('HH');
 
 /* $('.container-fluid').find('section').attr('value') */
 
@@ -75,7 +75,7 @@ function changeColor(id) {
   }
 }
 
-changeColor("#hour-9");
+changeColor("#hour-09");
 changeColor("#hour-10");
 changeColor("#hour-11");
 changeColor("#hour-12");
