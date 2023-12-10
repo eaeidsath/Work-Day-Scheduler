@@ -1,20 +1,15 @@
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-
 var currentDay = $("#currentDay");
 currentDay.text(dayjs().format('[It is currently] dddd, MMMM D YYYY, h:mm:ss'))
 
 function updateDay() {
-  currentDay.text(dayjs().format('[It is currently] dddd, MMMM D YYYY, h:mm:ss'));
+  currentDay.text(dayjs().format('[It is currently] dddd, MMMM D YYYY, h:mm:ss a'));
 };
 
 var inst = setInterval(updateDay, 1000);
 var button = $(".btn");
-/* var event = {
-  text: $(this).parent("textarea").value,
-  time: $(this).parent().parent("section").attr('id')
-}; */
 
 button.on('click', function () {
   // TODO: Add a listener for click events on the save button. This code should
@@ -24,26 +19,29 @@ button.on('click', function () {
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
   //
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour. HINTS: How can the id
-  // attribute of each time-block be used to conditionally add or remove the
-  // past, present, and future classes? How can Day.js be used to get the
-  // current hour in 24-hour time?
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
-  // TODO: Add code to display the current date in the header of the page.
   var event = {
-    text: $(this).parent("textarea").value,
-    time: $(this).parent().parent("section").attr('id')
+    text: $(this).parent().children("textarea").val(),
+    time: $(this).parent("section").attr('id')
   };
-  localStorage.setItem("event", JSON.stringify(event));
+
+  var currentID = $(this).parent("section").attr('id');
+  localStorage.setItem(currentID, JSON.stringify(event));
 });
 
+
 function renderEvents() {
-  var storedEvents = JSON.parse(localStorage.getItem("event"));
+  var IdList = ["hour-09", "hour-10", "hour-11"];
+  for (var i = 0; i < IdList.length; i++) {
+    var storedEvents = JSON.parse(localStorage.getItem(IdList));
+    console.log(storedEvents);
+  }
+  /* var storedEvents = JSON.parse(localStorage.getItem(currentID));
+  console.log(storedEvents); */
   if (storedEvents !== null) {
     $(".container-fluid").children(storedEvents.time).text(storedEvents.text);
   }
