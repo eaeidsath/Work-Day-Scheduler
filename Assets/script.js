@@ -1,6 +1,6 @@
 //Sets text for date display
 var currentDay = $("#currentDay");
-currentDay.text(dayjs().format('[It is currently] dddd, MMMM D YYYY, h:mm:ss'))
+currentDay.text(dayjs().format('[It is currently] dddd, MMMM D YYYY, h:mm:ss a'))
 
 //updates the day and time
 function updateDay() {
