@@ -16,68 +16,21 @@ button.on('click', function () {
     time: $(this).parent("section").attr('id')
   };
 
-  //gives the stored item a unique name based on the element's ID
+  //gives the stored text a unique name based on the element's ID
   var currentID = $(this).parent("section").attr('id');
   localStorage.setItem(currentID, JSON.stringify(event));
 });
 
-//simplified function isn't working at the moment
+//prints saved text entries in their respective time slots
 function renderEvents() {
-/*   var IdList = ["hour-09", "hour-10", "hour-11"]; */
-/*   for (var i = 10; 9 < i < 18; i++) {
-    var storedEvents = JSON.parse(localStorage.getItem("hour-" + i));
-    var i = $("#hour-" + i).children("textarea");
-    i.text(storedEvents.text);
-    return;
-  } */
-  /* var storedEventHour9 = JSON.parse(localStorage.getItem("hour-09"));
-  console.log(storedEventHour9.text); */
-
-  /* var storedEvents = JSON.parse(localStorage.getItem(currentID));
-  console.log(storedEvents); */
-  /* if (storedEvents !== null) {
-    $(".container-fluid").children(storedEvents.time).text(storedEvents.text);
-  } */
-  
-}
-
-//long form of rendering saved data onto each hour's text area
-function longMethod() {
-  var storedEventHour9 = JSON.parse(localStorage.getItem("hour-09"));
-  var hour9 = $("#hour-09").children("textarea");
-  hour9.text(storedEventHour9.text);
-
-  var storedEventHour10 = JSON.parse(localStorage.getItem("hour-10"));
-  var hour10 = $("#hour-10").children("textarea");
-  hour10.text(storedEventHour10.text);
-
-  var storedEventHour11 = JSON.parse(localStorage.getItem("hour-11"));
-  var hour11 = $("#hour-11").children("textarea");
-  hour11.text(storedEventHour11.text);
-
-  var storedEventHour12 = JSON.parse(localStorage.getItem("hour-12"));
-  var hour12 = $("#hour-12").children("textarea");
-  hour12.text(storedEventHour12.text);
-
-  var storedEventHour13 = JSON.parse(localStorage.getItem("hour-13"));
-  var hour13 = $("#hour-13").children("textarea");
-  hour13.text(storedEventHour13.text);
-
-  var storedEventHour14 = JSON.parse(localStorage.getItem("hour-14"));
-  var hour14 = $("#hour-14").children("textarea");
-  hour14.text(storedEventHour14.text);
-
-  var storedEventHour15 = JSON.parse(localStorage.getItem("hour-15"));
-  var hour15 = $("#hour-15").children("textarea");
-  hour15.text(storedEventHour15.text);
-
-  var storedEventHour16 = JSON.parse(localStorage.getItem("hour-16"));
-  var hour16 = $("#hour-16").children("textarea");
-  hour16.text(storedEventHour16.text);
-
-  var storedEventHour17 = JSON.parse(localStorage.getItem("hour-17"));
-  var hour17 = $("#hour-17").children("textarea");
-  hour17.text(storedEventHour17.text);
+   var IdList = ["hour-09", "hour-10", "hour-11", "hour-12", "hour-13", "hour-14", "hour-15", "hour-16", "hour-17"];
+   for (var i = 0; i < IdList.length; i++) {
+    var storedEvents = JSON.parse(localStorage.getItem(IdList[i]));
+    var item = $(`#${IdList[i]}`).children("textarea");
+    if (storedEvents !== null) {
+      item.text(storedEvents.text);
+    }
+  }
 }
 
 //functions for changing the styling to past, present, and future
@@ -117,5 +70,4 @@ changeColor("#hour-15");
 changeColor("#hour-16");
 changeColor("#hour-17");
 
-/* renderEvents(); */
-longMethod();
+renderEvents();
